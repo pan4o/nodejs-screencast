@@ -1,9 +1,21 @@
-var user = require('./user');
 
-var tom = new user.userConstructor('Tom');
-var bill = new user.userConstructor('Bill');
-var globalJim = new GlobalUser('Buffalo Jim');
+var log = require('logger')(module);
+var db = require('db');
 
-tom.hello(bill);
+db.connect();
 
-console.log(globalJim);
+var User = require('./user');
+
+function run() {
+  var tom = new User('Tom');
+  var bill = new User('Bill');
+
+  tom.hello(bill);
+  log(db.getPhrase('Run successful'));
+}
+
+if(module.parent) {
+  exports.run = run;
+} else {
+  run();
+}

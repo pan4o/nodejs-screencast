@@ -1,21 +1,14 @@
 //exports
 //users
+var log = require('logger')(module);
+var db = require('db');
 
-var phrases = require('./ru');
-
-function UserConstructor(name) {
+function User(name) {
   this.name = name;
 }
 
-UserConstructor.prototype.hello = function (who) {
-  console.log(phrases.Hello + ', ' + who.name);
+User.prototype.hello = function (who) {
+  log(db.getPhrase('Hello') + ', ' + who.name);
 }
 
-function GlobalUser(name) {
-  this.name = name;
-}
-
-console.log('file is required');
-
-exports.userConstructor = UserConstructor;
-global.GlobalUser = GlobalUser;
+module.exports = User;
